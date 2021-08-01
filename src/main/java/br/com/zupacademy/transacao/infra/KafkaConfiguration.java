@@ -1,6 +1,6 @@
 package br.com.zupacademy.transacao.infra;
 
-import br.com.zupacademy.transacao.kafka.mensagem.transacao.Transacao;
+import br.com.zupacademy.transacao.modelo.Transacao;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;

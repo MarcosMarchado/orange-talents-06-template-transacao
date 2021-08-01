@@ -1,24 +1,20 @@
 package br.com.zupacademy.transacao.kafka.listener;
 
-import br.com.zupacademy.transacao.kafka.mensagem.transacao.Transacao;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import br.com.zupacademy.transacao.modelo.Transacao;
+import br.com.zupacademy.transacao.repository.TransacaoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ListenerDeTransacao {
 
-    private final Logger logger = LoggerFactory.getLogger(ListenerDeTransacao.class);
+    @Autowired
+    private TransacaoRepository transacaoRepository;
 
     @KafkaListener(topics = "${spring.kafka.topic.transactions}")
     public void ouvir(Transacao eventoDeTransacao) {
-        logger.info("ID: {}", eventoDeTransacao.getId());
-        logger.info("Valor: {}", eventoDeTransacao.getValor());
-        logger.info("Nome do estabelecimento: {}", eventoDeTransacao.getEstabelecimento().getNome());
-        logger.info("Cidade: {}", eventoDeTransacao.getEstabelecimento().getCidade());
-        logger.info("Endereço: {}", eventoDeTransacao.getEstabelecimento().getEndereco());
-        logger.info("Efetivado em: {}", eventoDeTransacao.getEfetivadaEm());
+        transacaoRepository.save(eventoDeTransacao);
     }
 
 }

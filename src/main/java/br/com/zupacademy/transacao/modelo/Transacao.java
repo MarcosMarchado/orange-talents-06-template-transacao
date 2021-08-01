@@ -1,15 +1,24 @@
-package br.com.zupacademy.transacao.kafka.mensagem.transacao;
+package br.com.zupacademy.transacao.modelo;
 
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Entity
 public class Transacao {
 
+    @Id
     private String id;
     private BigDecimal valor;
+    @Embedded
     private Estabelecimento estabelecimento;
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Cartao cartao;
     private String efetivadaEm;
+
+    @Deprecated
+    public Transacao() {
+    }
 
     public String getId() {
         return id;
